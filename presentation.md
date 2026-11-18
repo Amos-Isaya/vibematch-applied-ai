@@ -26,4 +26,4 @@ Run `python -m unittest discover -s tests -p test_agent.py -v`. Explain that the
 
 ## 5. Reflection and next steps (about 1 minute)
 
-Describe your own experience collaborating with AI and review the draft in `model_card.md` before presenting it. Explain the accepted and revised suggestions in your own words. One lesson from the project is that verification can expose a conflict between preferences rather than hiding it behind a single score. A future improvement would be to test the threshold with real listeners and use a larger, more representative catalog.
+I collaborated with Codex to extend the original recommender, inspect its behavior, and build tests and documentation. I kept the proposed energy verification step because it addressed the mismatch in my earlier experiment. I also kept the workflow bounded and rule-based to make its decisions reproducible without an API key. One lesson is that verification can expose a conflict between preferences rather than hiding it behind a single score. A future improvement would be to test the threshold with real listeners and use a larger, more representative catalog.

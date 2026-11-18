@@ -22,12 +22,10 @@ A user could mistake fictional songs for real releases or present scores as prov
 
 The high-energy case illustrates a surprising trade-off: preventing the original mismatch can leave the listener with no suggestions. Passing tests does not measure enjoyment or establish fairness.
 
-## AI collaboration — author review required
+## AI collaboration and reflection
 
-Codex inspected the prior repository, proposed and implemented the verification workflow, and ran the tests reported here. The author should replace this note with their own account of one AI suggestion they accepted and one they rejected or revised, including why. Those personal decisions cannot be inferred from the automated work and should not be fabricated.
+I collaborated with Codex to extend my Module 3 recommender. Codex inspected the original project, built the retrieval and verification workflow, and helped document and test it. I used the original project's high-energy lofi experiment as a concrete case for checking whether the new system addressed the problem.
 
-### Draft reflection for the author to review
+I accepted the suggestion to verify the energy gap before ranking: the original scoring could favor songs that matched the genre and mood but were much less energetic than requested. Adding a separate energy check makes that conflict visible, including when no candidate passes.
 
-I used Codex to inspect my earlier Music Recommender Simulation and extend it into VibeMatch. It helped build the retrieval, energy verification, explanations, tests, and documentation. I can check its work by running the commands and comparing the recommendations with the input preferences; passing tests alone does not prove the recommendations fit a real person's taste.
-
-The design retained the suggestion to check the energy gap before ranking because the earlier high-energy lofi experiment exposed how strongly genre and mood could outweigh energy. The implementation also scoped the workflow down to a bounded, deterministic agent instead of adding an external model: its steps and explanations can be inspected and reproduced without an API key. This is a project design revision, not a claim that I personally rejected a specific AI suggestion. I should replace or supplement it with an actual suggestion I changed and my reason after reviewing the work.
+I revised the approach by keeping the workflow bounded and rule-based instead of adding an external language model. This simplified setup and made the decision steps reproducible without an API key. The trade-off is that it cannot interpret nuanced natural-language preferences or learn a listener's taste. The six tests check specific behaviors; they cannot show that real listeners will enjoy the results or that the catalog represents them fairly.

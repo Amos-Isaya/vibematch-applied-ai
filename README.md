@@ -58,10 +58,10 @@ Scores are rule-based fit, not probabilities. Review the suggestions yourself.
 
 ## Reliability and reflection
 
-Six automated agent tests passed: ranking, energy rejection, no matches, invalid energy, invalid count, and case normalization/explanation. The high-energy lofi case now returns no match instead of a misleading low-energy song. This verifies selected rules on a fixed catalog; it does not establish user satisfaction, fairness, or accuracy in a real catalog. See [model_card.md](model_card.md) for risks, misuse, and the reflection to complete with the author's own experience.
+Six automated agent tests passed: ranking, energy rejection, no matches, invalid energy, invalid count, and case normalization/explanation. The high-energy lofi case now returns no match instead of a misleading low-energy song. This verifies selected rules on a fixed catalog; it does not establish user satisfaction, fairness, or accuracy in a real catalog. See [model_card.md](model_card.md) for risks, misuse, and AI collaboration.
 
 The project illustrates how an explicit verification step can change an apparently plausible recommendation and make its trade-offs visible. A next step would be testing whether real listeners find the threshold useful before treating it as a preference.
 
 ## Presentation and portfolio
 
-A [presentation outline](presentation.md) provides a 5–7 minute demo plan. The [portfolio draft](portfolio.md) links to the public repository and includes a reflection to personalize. Review the presentation script and model-card reflection before presenting.
+A [presentation outline](presentation.md) provides a 5–7 minute demo plan. The [portfolio entry](portfolio.md) links to the public repository and includes a reflection.
