@@ -5,7 +5,10 @@ flowchart TD
     P --> R
     R --> G[Verify energy gap ≤ 0.25]
     G --> S[Original weighted scorer and explanations]
-    S --> O[Recommendations or no-match message]
+    S --> X[Retrieve genre and mood notes]
+    K[(Two local note indexes)] --> X
+    X --> O[Recommendations and attributed context or no-match message]
+    P -. optional trace .-> L[Saved decision log]
     O --> H[Human reviews or revises preferences]
     H --> U
     T[Automated reliability tests] -. check .-> V

@@ -1,0 +1,6 @@
+Input: genre=lofi, mood=chill, energy=0.4
+Plan: validate input -> retrieve relevant songs -> verify energy -> rank -> return
+Retrieve: 4 candidates matched genre or mood
+Verify: rejected 0 candidates with energy gap above 0.25
+Rank: original genre, mood, and energy scoring
+Return: Midnight Coding
