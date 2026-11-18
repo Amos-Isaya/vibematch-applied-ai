@@ -1,51 +1,32 @@
-"""Compare recommendations for different listener profiles."""
-
-from .recommender import load_songs, recommend_songs
-
-
-def main() -> None:
-    songs = load_songs("data/songs.csv")
-    print(f"Loaded songs: {len(songs)}")
-
-    profiles = {
-        "High-Energy Pop": {
-            "genre": "pop",
-            "mood": "happy",
-            "energy": 0.9,
-        },
-        "Chill Lofi": {
-            "genre": "lofi",
-            "mood": "chill",
-            "energy": 0.4,
-        },
-        "Deep Intense Rock": {
-            "genre": "rock",
-            "mood": "intense",
-            "energy": 0.9,
-        },
-        "Edge Case: High-Energy Chill Lofi": {
-            "genre": "lofi",
-            "mood": "chill",
-            "energy": 0.95,
-        },
-    }
-
-    for name, user_prefs in profiles.items():
-        print(f"\n=== {name} ===")
-        print(f"Preferences: {user_prefs}\n")
-
-        recommendations = recommend_songs(
-            user_prefs, songs, k=5
-        )
-
-        for position, result in enumerate(
-            recommendations, start=1
-        ):
-            song, score, explanation = result
-            print(f"{position}. {song['title']} - Score: {score:.2f}")
-            print(f"Because: {explanation}")
-            print()
+"""Run the VibeMatch recommendation agent from the command line."""
+import argparse
+import logging
+from pathlib import Path
+from .agent import recommend
+from .recommender import load_songs
 
 
-if __name__ == "__main__":
+def main():
+    parser = argparse.ArgumentParser(description='Find fictional songs matching your preferences.')
+    parser.add_argument('--genre', required=True)
+    parser.add_argument('--mood', required=True)
+    parser.add_argument('--energy', required=True, type=float)
+    parser.add_argument('--count', type=int, default=3)
+    args = parser.parse_args()
+    logging.basicConfig(level=logging.WARNING, format='%(levelname)s: %(message)s')
+    try:
+        songs = load_songs(str(Path(__file__).resolve().parent.parent / 'data' / 'songs.csv'))
+        output = recommend(vars(args), songs, args.count)
+    except (OSError, ValueError, KeyError) as exc:
+        parser.exit(2, f'Error: {exc}\n')
+    print(f"Retrieved: {output['candidates']} | Rejected by energy guardrail: {output['rejected']}")
+    if not output['results']:
+        print('No verified matches. Try changing genre, mood, or energy.')
+    for i, (song, score, why) in enumerate(output['results'], 1):
+        print(f"{i}. {song['title']} — {song['artist']} | score {score:.2f} | energy {song['energy']:.2f}")
+        print(f'   {why}')
+    print('Scores are rule-based fit, not probabilities. Review the suggestions yourself.')
+
+
+if __name__ == '__main__':
     main()
