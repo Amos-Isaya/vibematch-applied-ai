@@ -33,27 +33,49 @@ These are actual runs from the project directory:
 $ python3 -m src.main --genre lofi --mood chill --energy 0.4
 Retrieved: 4 | Rejected by energy guardrail: 0
 1. Midnight Coding — LoRoom | score 5.98 | energy 0.42
-   Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.98)
+   Because: Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.98)
+   Context [genres.json#lofi]: Lofi is tagged for a subdued, study-friendly sound in this fictional catalog.
+   Context [moods.json#chill]: Chill tracks are tagged for a relaxed listening mood.
 2. Library Rain — Paper Lanterns | score 5.95 | energy 0.35
-   Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.95)
+   Because: Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.95)
+   Context [genres.json#lofi]: Lofi is tagged for a subdued, study-friendly sound in this fictional catalog.
+   Context [moods.json#chill]: Chill tracks are tagged for a relaxed listening mood.
 3. Focus Flow — LoRoom | score 4.00 | energy 0.40
-   Genre match (+3.0); Energy similarity (+1.00)
+   Because: Genre match (+3.0); Energy similarity (+1.00)
+   Context [genres.json#lofi]: Lofi is tagged for a subdued, study-friendly sound in this fictional catalog.
 Scores are rule-based fit, not probabilities. Review the suggestions yourself.
 
 $ python3 -m src.main --genre pop --mood happy --energy 0.9
 Retrieved: 3 | Rejected by energy guardrail: 0
 1. Sunrise City — Neon Echo | score 5.92 | energy 0.82
-   Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.92)
+   Because: Genre match (+3.0); Mood match (+2.0); Energy similarity (+0.92)
+   Context [genres.json#pop]: Pop is tagged for accessible, rhythm-forward songs in this fictional catalog.
+   Context [moods.json#happy]: Happy tracks are tagged for an upbeat listening mood.
 2. Gym Hero — Max Pulse | score 3.97 | energy 0.93
-   Genre match (+3.0); Energy similarity (+0.97)
+   Because: Genre match (+3.0); Energy similarity (+0.97)
+   Context [genres.json#pop]: Pop is tagged for accessible, rhythm-forward songs in this fictional catalog.
+   Context [moods.json#intense]: Intense tracks are tagged for an energetic listening mood.
 3. Rooftop Lights — Indigo Parade | score 2.86 | energy 0.76
-   Mood match (+2.0); Energy similarity (+0.86)
+   Because: Mood match (+2.0); Energy similarity (+0.86)
+   Context [moods.json#happy]: Happy tracks are tagged for an upbeat listening mood.
 Scores are rule-based fit, not probabilities. Review the suggestions yourself.
 
 $ python3 -m src.main --genre lofi --mood chill --energy 0.95
 Retrieved: 4 | Rejected by energy guardrail: 4
 No verified matches. Try changing genre, mood, or energy.
 Scores are rule-based fit, not probabilities. Review the suggestions yourself.
+```
+
+## Context, output styles, and trace
+
+The standard output adds exact-match notes from two editable local indexes, `knowledge/genres.json` and `knowledge/moods.json`, with source labels. For Midnight Coding the original explanation reports only score components; the extended output also provides attributed genre and mood notes. This improves context available to a reader but does not establish improved recommendation quality. Missing labels produce no note. This is deterministic, extractive retrieval and templating; it is not language-model RAG.
+
+Use `--style brief` to display the same score reasons in one line without context, or the default `--style standard` for source-attributed notes. The style does not alter ranking. Use `--trace logs/lofi_trace.txt` to save the executed plan and decision counts; see [the sample trace](logs/lofi_trace.txt) and [workflow record](ai_interactions.md).
+
+```bash
+python -m src.main --genre lofi --mood chill --energy 0.4 --count 1 --trace logs/lofi_trace.txt
+python -m src.main --genre lofi --mood chill --energy 0.4 --count 1 --style brief
+python -m unittest discover -s tests -p 'test_*.py'
 ```
 
 ## Evaluation script

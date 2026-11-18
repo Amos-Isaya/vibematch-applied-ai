@@ -29,3 +29,9 @@ I collaborated with Codex to extend my Module 3 recommender. Codex inspected the
 I accepted the suggestion to verify the energy gap before ranking: the original scoring could favor songs that matched the genre and mood but were much less energetic than requested. Adding a separate energy check makes that conflict visible, including when no candidate passes.
 
 I revised an AI suggestion about the documentation: Codex initially suggested leaving the collaboration reflection as a note for me to complete. I asked it to replace the unfinished note with a complete account grounded in the project work, because the final artifact needed a usable reflection. The rule-based workflow makes the decision steps reproducible without an API key, but it cannot interpret nuanced natural-language preferences or learn a listener's taste. The tests check specific behaviors; they cannot show that real listeners will enjoy the results or that the catalog represents them fairly.
+
+## Output specialization comparison
+
+The default style gives a score explanation plus attributed genre and mood notes retrieved from two local indexes. The `brief` style omits the notes and outputs only the scoring reasons. For the same lofi input, the standard explanation contains two context lines and the brief explanation contains zero; both retain the same three scoring components and the same top song. This is a deterministic format option, not a specialized or fine-tuned language model, so it should not be presented as a model-specialization experiment.
+
+The notes are hand-authored descriptions of fictional tags; they are not evidence about real artists or music. Exact lookup omits notes for categories absent from the index, and it cannot infer a reliable description of an unknown category.
