@@ -64,4 +64,4 @@ The project illustrates how an explicit verification step can change an apparent
 
 ## Presentation and portfolio
 
-A [presentation outline](presentation.md) provides a 5–7 minute demo plan. Add the final public GitHub URL and your own portfolio reflection after reviewing the work.
+A [presentation outline](presentation.md) provides a 5–7 minute demo plan. The [portfolio draft](portfolio.md) links to the public repository and includes a reflection to personalize. Review the presentation script and model-card reflection before presenting.

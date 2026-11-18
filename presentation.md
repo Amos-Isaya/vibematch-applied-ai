@@ -1,7 +1,29 @@
-# Presentation outline (5–7 minutes)
+# VibeMatch presentation script (approximately 5–7 minutes)
 
-1. **Problem and original project (1 minute):** Introduce the Module 3 recommender, the 18 fictional songs, and the high-energy lofi mismatch.
-2. **Architecture (1 minute):** Walk through `diagrams/architecture.mmd`: validation, retrieval, energy verification, ranking, and human review.
-3. **Demo (2 minutes):** Run the three commands in the README. Compare ordinary matches with the no-match guardrail case and explain a score.
-4. **Testing and limitations (1–2 minutes):** Run the six tests. Explain the small catalog, exact labels, chosen threshold, and why a score is not a probability.
-5. **Reflection (1 minute):** Describe your own AI collaboration, the design decisions you accepted or changed, and what you would test with real listeners.
+## 1. Problem and original project (about 1 minute)
+
+My project is VibeMatch, a music recommendation simulation built in Python. It extends my Module 3 Music Recommender Simulation, which ranked 18 fictional songs by genre, mood, and energy. The original project gave a score and explanation for each song. During an earlier experiment, a listener asking for high-energy chill lofi still received low-energy songs because genre and mood had more weight than energy. I wanted the final system to make that trade-off clearer.
+
+## 2. System architecture (about 1 minute)
+
+Show `diagrams/architecture.mmd`. A listener supplies a genre, mood, and target energy. The program validates that input, retrieves songs matching the genre or mood, and rejects songs whose energy is more than 0.25 away from the requested value. It then uses the original scoring rules to rank the remaining candidates. Finally, it displays its reasons or tells the listener no songs passed. The listener is in the loop: they review the results and can change the request. This is a rule-based agent, not a language model or a trained prediction system.
+
+## 3. Demo (about 2 minutes)
+
+Run these commands from the project directory:
+
+```bash
+python -m src.main --genre lofi --mood chill --energy 0.4
+python -m src.main --genre pop --mood happy --energy 0.9
+python -m src.main --genre lofi --mood chill --energy 0.95
+```
+
+For the first two requests, show the ranked songs and explain that matching genre earns three points, matching mood earns two, and energy similarity contributes up to one. For the last request, point out that four candidates were retrieved but all four failed the energy guardrail, so the system asks the listener to revise the request rather than presenting them as verified matches. A score is a rule-based fit, not a probability of enjoyment.
+
+## 4. Testing and responsible design (about 1–2 minutes)
+
+Run `python -m unittest discover -s tests -p test_agent.py -v`. Explain that the six tests check a normal recommendation, energy rejection, no matches, invalid energy, invalid count, and input normalization. The catalog is small and fictional; exact matching and fixed weights can disadvantage genres with few examples. A strict energy constraint can also exclude songs someone might like. These tests check program behavior, not real-world recommendation quality or fairness.
+
+## 5. Reflection and next steps (about 1 minute)
+
+Describe your own experience collaborating with AI and review the draft in `model_card.md` before presenting it. Explain the accepted and revised suggestions in your own words. One lesson from the project is that verification can expose a conflict between preferences rather than hiding it behind a single score. A future improvement would be to test the threshold with real listeners and use a larger, more representative catalog.

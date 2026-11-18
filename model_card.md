@@ -25,3 +25,9 @@ The high-energy case illustrates a surprising trade-off: preventing the original
 ## AI collaboration — author review required
 
 Codex inspected the prior repository, proposed and implemented the verification workflow, and ran the tests reported here. The author should replace this note with their own account of one AI suggestion they accepted and one they rejected or revised, including why. Those personal decisions cannot be inferred from the automated work and should not be fabricated.
+
+### Draft reflection for the author to review
+
+I used Codex to inspect my earlier Music Recommender Simulation and extend it into VibeMatch. It helped build the retrieval, energy verification, explanations, tests, and documentation. I can check its work by running the commands and comparing the recommendations with the input preferences; passing tests alone does not prove the recommendations fit a real person's taste.
+
+The design retained the suggestion to check the energy gap before ranking because the earlier high-energy lofi experiment exposed how strongly genre and mood could outweigh energy. The implementation also scoped the workflow down to a bounded, deterministic agent instead of adding an external model: its steps and explanations can be inspected and reproduced without an API key. This is a project design revision, not a claim that I personally rejected a specific AI suggestion. I should replace or supplement it with an actual suggestion I changed and my reason after reviewing the work.
