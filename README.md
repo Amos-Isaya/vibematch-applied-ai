@@ -56,6 +56,21 @@ No verified matches. Try changing genre, mood, or energy.
 Scores are rule-based fit, not probabilities. Review the suggestions yourself.
 ```
 
+## Evaluation script
+
+Run the predefined end-to-end scenarios with `python -m scripts.evaluate`. This checks the expected top song and energy rejection count for five fixed inputs, including an empty-result case. It exits with a nonzero status if a check fails.
+
+```text
+PASS chill lofi: top=Midnight Coding, rejected=0
+PASS happy pop: top=Sunrise City, rejected=0
+PASS intense rock: top=Storm Runner, rejected=0
+PASS high-energy lofi: top=none, rejected=4
+PASS unknown labels: top=none, rejected=0
+Summary: 5/5 passed
+```
+
+These scenarios check expected behavior on this fictional catalog, not listener satisfaction or general accuracy.
+
 ## Reliability and reflection
 
 Six automated agent tests passed: ranking, energy rejection, no matches, invalid energy, invalid count, and case normalization/explanation. The high-energy lofi case now returns no match instead of a misleading low-energy song. This verifies selected rules on a fixed catalog; it does not establish user satisfaction, fairness, or accuracy in a real catalog. See [model_card.md](model_card.md) for risks, misuse, and AI collaboration.
