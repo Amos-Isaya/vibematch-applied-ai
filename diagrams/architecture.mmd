@@ -1,0 +1,13 @@
+flowchart TD
+    U[Listener: genre, mood, energy] --> V[Validate input]
+    V --> P[Agent plan: retrieve, verify, rank]
+    C[(Fictional song catalog)] --> R[Retrieve genre or mood matches]
+    P --> R
+    R --> G[Verify energy gap ≤ 0.25]
+    G --> S[Original weighted scorer and explanations]
+    S --> O[Recommendations or no-match message]
+    O --> H[Human reviews or revises preferences]
+    H --> U
+    T[Automated reliability tests] -. check .-> V
+    T -. check .-> G
+    T -. check .-> S
